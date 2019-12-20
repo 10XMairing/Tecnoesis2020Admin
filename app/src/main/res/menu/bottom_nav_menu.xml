@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.github.tenx.tecnoesis20.ui.main.MainActivity">
+    tools:context="com.github.tenx.tecnoesis20admin.ui.main.MainActivity">
     <item
         android:id="@+id/nav_home"
         android:orderInCategory="100"
