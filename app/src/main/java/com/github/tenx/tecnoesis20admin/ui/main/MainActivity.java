@@ -6,7 +6,6 @@ import com.github.tenx.tecnoesis20admin.R;
 import com.github.tenx.tecnoesis20admin.ui.main.about.AboutFragment;
 import com.github.tenx.tecnoesis20admin.ui.main.events.EventsFragment;
 import com.github.tenx.tecnoesis20admin.ui.main.home.HomeFragment;
-import com.github.tenx.tecnoesis20admin.ui.main.schedule.ScheduleFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
@@ -33,7 +32,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private HomeFragment fragHome;
     private EventsFragment fragEvents;
     private AboutFragment fragAbout;
-    private ScheduleFragment fragSchedule;
 
 //    frag mans
     private FragmentManager fm;
@@ -47,10 +45,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             }else   if(menuItem.getItemId() == R.id.nav_events){
                 colorID = R.color.nav_events;
 
-
-            }
-            else   if(menuItem.getItemId() == R.id.nav_schedule){
-                colorID = R.color.nav_schedule;
 
             }
             else   if(menuItem.getItemId() == R.id.nav_about){
@@ -129,10 +123,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             case R.id.nav_events:
                 frag = new EventsFragment();
                 colorID = R.color.nav_events;
-                break;
-            case R.id.nav_schedule:
-                frag = new ScheduleFragment();
-                colorID = R.color.nav_schedule;
                 break;
             case R.id.nav_about:
                 frag = new AboutFragment();

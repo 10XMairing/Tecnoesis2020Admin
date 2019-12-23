@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/img_background"
     tools:context=".ui.main.home.HomeFragment">
 
     <LinearLayout
@@ -13,13 +14,22 @@
 
         <include layout="@layout/login_ui"/>
 
-        <View
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/md_blue_grey_400"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="2dp"/>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hi, Admin!"
+                android:textStyle="bold"
+                android:fontFamily="@font/flamenco"
+                android:layout_centerInParent="true"
+                android:textSize="24dp"
+                android:textColor="@color/md_white_1000"/>
+
+        </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -30,13 +40,14 @@
                 android:id="@+id/tv_upcoming_events"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:text="Your Upcoming Events....."
                 android:textSize="20sp"
                 android:fontFamily="casual"
-                android:textColor="@color/md_indigo_500"/>
+                android:textColor="@color/md_white_1000"/>
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rview_upcoming_events"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@+id/tv_upcoming_events"

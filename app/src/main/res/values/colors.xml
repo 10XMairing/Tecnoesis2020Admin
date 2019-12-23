@@ -2,7 +2,6 @@
 <resources>
     <!--purple darken 4-->
     <color name="colorPrimary">#4A148C</color>
-
     <color name="colorPrimaryDark">#2C2C2E</color>
     <color name="colorAccent">#D81B60</color>
     <color name="nav_home">#4527a0</color>

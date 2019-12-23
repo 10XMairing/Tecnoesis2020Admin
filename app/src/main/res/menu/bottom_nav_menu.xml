@@ -18,12 +18,6 @@
         android:icon="@drawable/nav_events"
         />
     <item
-        android:id="@+id/nav_schedule"
-        android:orderInCategory="100"
-        android:title="@string/botnav_menu_schedule"
-        android:icon="@drawable/nav_schedule"
-        app:showAsAction="never" />
-    <item
         android:id="@+id/nav_about"
         android:orderInCategory="100"
         android:title="@string/botnav_menu_about"

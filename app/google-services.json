@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "527851990778",
+    "firebase_url": "https://attendo-b2663.firebaseio.com",
+    "project_id": "attendo-b2663",
+    "storage_bucket": "attendo-b2663.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:527851990778:android:bd2c843da05a52b0bf6343",
+        "android_client_info": {
+          "package_name": "com.github.tenx.tecnoesis20admin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "527851990778-t057oij0m4m8u5s2us8b6heg17mon2as.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.github.tenx.tecnoesis20admin",
+            "certificate_hash": "7ce886a1e23fb6f5715410bbf46a0ca5f6a769db"
+          }
+        },
+        {
+          "client_id": "527851990778-r3lvluaejhrodt7cc5j9nanfpnkrfhtr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0gxY_tLHFOKCJLvIAb4k6kyDCc3L6-xc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "527851990778-r3lvluaejhrodt7cc5j9nanfpnkrfhtr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

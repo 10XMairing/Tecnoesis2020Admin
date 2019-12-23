@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout android:layout_width="match_parent"
+<RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <TextView
-        android:id="@+id/header"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:fontFamily="casual"
-        android:text="Tecnoesis 2020"
-        android:textStyle="bold"
-        android:textSize="20sp"
-        android:textColor="@color/md_indigo_700"/>
+    <ImageView
+        android:id="@+id/iv_header"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        app:srcCompat="@drawable/img_header"
+        android:scaleType="fitStart"/>
 
     <Button
         android:id="@+id/btn_login"
@@ -21,12 +18,12 @@
         android:layout_alignParentRight="true"
         android:layout_marginTop="10dp"
         android:layout_marginRight="5dp"
-        android:background="@color/md_indigo_500"
         android:fontFamily="sans-serif-light"
         android:text="LOGIN"
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textSize="16sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:backgroundTint="@color/md_deep_purple_900"/>
 
 </RelativeLayout>
