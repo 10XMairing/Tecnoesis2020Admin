@@ -1,16 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/img_background"
     tools:context=".ui.main.home.HomeFragment">
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/frag_home_rv_card"
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:listitem="@layout/card_home"></androidx.recyclerview.widget.RecyclerView>
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
+        <include layout="@layout/login_ui"/>
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hi, Admin!"
+                android:textStyle="bold"
+                android:fontFamily="@font/flamenco"
+                android:layout_centerInParent="true"
+                android:textSize="24dp"
+                android:textColor="@color/md_white_1000"/>
 
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp">
+
+            <TextView
+                android:id="@+id/tv_upcoming_events"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Your Upcoming Events....."
+                android:textSize="20sp"
+                android:fontFamily="casual"
+                android:textColor="@color/md_white_1000"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rview_upcoming_events"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/tv_upcoming_events"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="3dp"
+                android:layout_marginLeft="3dp">
+            </androidx.recyclerview.widget.RecyclerView>
+        </RelativeLayout>
+
+    </LinearLayout>
 </RelativeLayout>

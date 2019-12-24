@@ -9,53 +9,43 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.github.tenx.tecnoesis20admin.data.AppDataManager;
 import com.github.tenx.tecnoesis20admin.data.models.EventResponse;
+import com.github.tenx.tecnoesis20admin.data.models.UpcomingEvents;
+import com.github.tenx.tecnoesis20admin.data.repos.UpcomingEventsRepository;
 import com.github.tenx.tecnoesis20admin.ui.MyApplication;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import timber.log.Timber;
 
-public class HomeViewModel  extends AndroidViewModel implements HomeViewModelHelper {
-    private AppDataManager appDataManager;
-    private MutableLiveData<ArrayList<EventResponse>> eventsList;
+public class HomeViewModel  extends AndroidViewModel {
+
+    private MutableLiveData<List<UpcomingEvents>> upcomingEventsList;
+    private UpcomingEventsRepository mRepo;
+
     public HomeViewModel(@NonNull Application application) {
         super(application);
-        appDataManager = ((MyApplication) application).getDataManager();
     }
 
-    @Override
-    public LiveData<ArrayList<EventResponse>> getEvents() {
-        if(eventsList == null){
-            eventsList = new MutableLiveData<>();
+    public void init(){
+        if(upcomingEventsList != null){
+            return;
         }
-        return  eventsList;
+        mRepo = UpcomingEventsRepository.getInstance();
+        upcomingEventsList = mRepo.getUpcomingEvents();
     }
 
-    @Override
-    public void loadEvents() {
-        if(eventsList == null){
-            eventsList = new MutableLiveData<>();
+    public LiveData<List<UpcomingEvents>> getUpcomingEvents() {
+        if(upcomingEventsList == null){
+            upcomingEventsList = new MutableLiveData<>();
         }
-
-        appDataManager.getEvents().enqueue(new Callback<ArrayList<EventResponse>>() {
-            @Override
-            public void onResponse(Call<ArrayList<EventResponse>> call, Response<ArrayList<EventResponse>> response) {
-                if(response.code() < 300){
-                    eventsList.setValue(response.body());
-                }else{
-                    Timber.e("Response code : %d , Error fetching events" , response.code());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ArrayList<EventResponse>> call, Throwable t) {
-                Timber.e("Error fetching events , %s" ,t.getMessage() );
-            }
-        });
+        return  upcomingEventsList;
     }
+
+
 
 
 }
