@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView android:id="@+id/prodCard"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="5dp"
+    android:elevation="5dp"
+    card_view:cardCornerRadius="5dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:padding="5dp"
+        android:background="@drawable/img_event_card">
+
+        <TextView
+            android:id="@+id/tv_module_name_select"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="3dp"
+            android:fontFamily="@font/bungee_shade"
+            android:text="Module Name"
+            android:textColor="@color/md_white_1000"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/tv_event_name_select"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_module_name_select"
+            android:layout_margin="3dp"
+            android:text="Event Name"
+            android:textSize="18sp"
+            android:textColor="@color/md_white_1000"
+            android:fontFamily="casual"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/tv_dayndate_select"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_event_name_select"
+            android:text="Day and Date"
+            android:textSize="16sp"
+            android:layout_marginLeft="3dp"
+            android:textColor="@color/md_white_1000"
+            android:fontFamily="casual"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tv_time_select"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="3dp"
+            android:layout_below="@id/tv_event_name_select"
+            android:layout_toEndOf="@id/tv_dayndate_select"
+            android:text="Time"
+            android:textSize="16sp"
+            android:textColor="@color/md_white_1000"
+            android:fontFamily="casual"
+            android:textStyle="bold"/>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_module_name_select"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="3dp">
+
+        <TextView
+            android:id="@+id/tv_choose"
+            android:layout_marginRight="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Choose your event"
+            android:textSize="14sp"
+            android:fontFamily="casual"
+            android:textStyle="bold"
+            android:textColor="@color/md_white_1000" />
+
+            <CheckBox
+                android:id="@+id/cb_choose"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_choose"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="3dp"
+                android:background="@color/md_yellow_300" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
