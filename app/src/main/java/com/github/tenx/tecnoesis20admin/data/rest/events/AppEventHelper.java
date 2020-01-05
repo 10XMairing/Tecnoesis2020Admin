@@ -51,6 +51,11 @@ public class AppEventHelper implements  EventsApiService {
     public Call<TokenResponse> sendNotification(String sender, String title, String message) {
         return api.sendNotification(sender,title,message);
     }
+
+    @Override
+    public Call<TokenResponse> saveFeed( String image, String text) {
+        return api.saveFeed(image,text);
+    }
 }
 
 

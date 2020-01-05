@@ -36,4 +36,9 @@ public interface EventsApiService {
     Call<TokenResponse> sendNotification(@Field("sender") String sender,@Field("title") String title,@Field("message") String message);
 
 
+    @FormUrlEncoded
+    @POST("/api/v1/firebase/feed/push")
+    Call<TokenResponse> saveFeed(@Field("image") String image,@Field("text") String text);
+
+
 }

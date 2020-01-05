@@ -71,4 +71,9 @@ public class AppDataManager implements  AppDataManagerHelper{
         return restHelper.sendNotification(sender,message,title);
 
     }
+
+    @Override
+    public Call<TokenResponse> saveFeed(String image, String text) {
+        return restHelper.saveFeed(image,text);
+    }
 }

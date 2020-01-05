@@ -52,6 +52,10 @@ public class MainActivity extends AppCompatActivity
     NavigationView navigationView;
 
 
+    public MainViewModel getVm() {
+        return vm;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
