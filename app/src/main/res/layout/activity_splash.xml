@@ -14,7 +14,7 @@
         android:background="@color/design_default_color_primary"
         android:scaleType="centerCrop"
         android:tint="#6F0C0000"
-        android:src="@drawable/img_splash_temp"
+        android:src="@drawable/sky"
         />
 
     <TextView

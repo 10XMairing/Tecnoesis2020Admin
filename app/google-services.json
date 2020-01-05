@@ -1,42 +1,108 @@
 {
   "project_info": {
-    "project_number": "527851990778",
-    "firebase_url": "https://attendo-b2663.firebaseio.com",
-    "project_id": "attendo-b2663",
-    "storage_bucket": "attendo-b2663.appspot.com"
+    "project_number": "272364636716",
+    "firebase_url": "https://tecnoesis2020-7f992.firebaseio.com",
+    "project_id": "tecnoesis2020-7f992",
+    "storage_bucket": "tecnoesis2020-7f992.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:527851990778:android:bd2c843da05a52b0bf6343",
+        "mobilesdk_app_id": "1:272364636716:android:b057b6280a1f2e6dea9f89",
         "android_client_info": {
-          "package_name": "com.github.tenx.tecnoesis20admin"
+          "package_name": "com.github.tenx.tecnoesis20"
         }
       },
       "oauth_client": [
         {
-          "client_id": "527851990778-t057oij0m4m8u5s2us8b6heg17mon2as.apps.googleusercontent.com",
+          "client_id": "272364636716-holqj0i2frrbqv7c826rkpb2spga847g.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.github.tenx.tecnoesis20admin",
-            "certificate_hash": "7ce886a1e23fb6f5715410bbf46a0ca5f6a769db"
+            "package_name": "com.github.tenx.tecnoesis20",
+            "certificate_hash": "4a29b63faa4a5612c6537b1eb74131ba68f1f2df"
           }
         },
         {
-          "client_id": "527851990778-r3lvluaejhrodt7cc5j9nanfpnkrfhtr.apps.googleusercontent.com",
+          "client_id": "272364636716-q80f5mnoaeige57hijnks459niuq1ac1.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyC0gxY_tLHFOKCJLvIAb4k6kyDCc3L6-xc"
+          "current_key": "AIzaSyCttrHmes-Jd1PHrLoT3avCAchQL17rozY"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "527851990778-r3lvluaejhrodt7cc5j9nanfpnkrfhtr.apps.googleusercontent.com",
+              "client_id": "272364636716-q80f5mnoaeige57hijnks459niuq1ac1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:272364636716:android:9fba8f80bef26c82ea9f89",
+        "android_client_info": {
+          "package_name": "com.github.tenx.tecnoesis20admin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "272364636716-q80f5mnoaeige57hijnks459niuq1ac1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCttrHmes-Jd1PHrLoT3avCAchQL17rozY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "272364636716-q80f5mnoaeige57hijnks459niuq1ac1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:272364636716:android:ab77e052648c2485ea9f89",
+        "android_client_info": {
+          "package_name": "com.sample.notify"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "272364636716-4qsnv38u84dqpo8k479vubhqi7tes3mv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sample.notify",
+            "certificate_hash": "7ce886a1e23fb6f5715410bbf46a0ca5f6a769db"
+          }
+        },
+        {
+          "client_id": "272364636716-q80f5mnoaeige57hijnks459niuq1ac1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCttrHmes-Jd1PHrLoT3avCAchQL17rozY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "272364636716-q80f5mnoaeige57hijnks459niuq1ac1.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

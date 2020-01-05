@@ -9,58 +9,66 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.github.tenx.tecnoesis20admin.R;
+import com.github.tenx.tecnoesis20admin.data.models.NotificationBody;
 import com.github.tenx.tecnoesis20admin.data.models.UpcomingEvents;
 
 import java.util.List;
 
-public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> {
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
+import timber.log.Timber;
 
-    private List<UpcomingEvents> upcomingEvents;
-    private LayoutInflater inflater;
-    private Context mContext;
+public class HomeAdapter extends FirebaseRecyclerAdapter<NotificationBody, HomeAdapter.CustomViewHolder> {
 
-    public HomeAdapter(Context context, List<UpcomingEvents> upcomingEvents) {
-        this.mContext = context;
-        inflater = LayoutInflater.from(context);
-        this.upcomingEvents = upcomingEvents;
+    private Context context;
+
+    public HomeAdapter(@NonNull FirebaseRecyclerOptions<NotificationBody> options) {
+        super(options);
+    }
+
+    @Override
+    protected void onBindViewHolder(@NonNull CustomViewHolder holder, int position, @NonNull NotificationBody model) {
+
+        Glide.with(context).load(model.getImage()).into(holder.civNotificationitemImage);
+        holder.tvNotificationitemSenderName.setText(model.getSender());
+        String sub = "Sub : " + model.getTitle();
+        holder.tvNotificationitemSubject.setText(sub);
+        holder.tvNotificationitemMessage.setText(model.getMessage());
+        holder.tvNotificationitemDate.setText(model.getDate());
+        Timber.d(model.toString());
+
     }
 
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.list_event, parent, false);
-        MyViewHolder holder = new MyViewHolder(view);
-        return holder;
+    public CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.listitem_notifications_body, parent, false);
+        this.context = parent.getContext();
+
+        return new CustomViewHolder(v);
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int i) {
-        ((MyViewHolder)holder).moduleName.setText(upcomingEvents.get(i).getModuleName());
-        ((MyViewHolder)holder).eventName.setText(upcomingEvents.get(i).getEventName());
-        ((MyViewHolder)holder).eventDate.setText(upcomingEvents.get(i).getEventDate());
-        ((MyViewHolder)holder).eventTime.setText(upcomingEvents.get(i).getEventTime());
-    }
-
-    @Override
-    public int getItemCount() {
-        return upcomingEvents.size();
-    }
-
-    class MyViewHolder extends RecyclerView.ViewHolder {
-
-        private TextView moduleName;
-        private TextView eventName;
-        private TextView eventDate;
-        private TextView eventTime;
-
-        public MyViewHolder(@NonNull View itemView) {
+    class CustomViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.civ_notificationitem_image)
+        CircleImageView civNotificationitemImage;
+        @BindView(R.id.tv_notificationitem_sender_name)
+        TextView tvNotificationitemSenderName;
+        @BindView(R.id.tv_notificationitem_date)
+        TextView tvNotificationitemDate;
+        @BindView(R.id.tv_notificationitem_subject)
+        TextView tvNotificationitemSubject;
+        @BindView(R.id.tv_notificationitem_message)
+        TextView tvNotificationitemMessage;
+        public CustomViewHolder(@NonNull View itemView) {
             super(itemView);
-            moduleName= itemView.findViewById(R.id.tv_module_name);
-            eventName= itemView.findViewById(R.id.tv_event_name);
-            eventDate= itemView.findViewById(R.id.tv_dayndate);
-            eventTime= itemView.findViewById(R.id.tv_time);
 
+            ButterKnife.bind(this , itemView);
         }
     }
+
 }

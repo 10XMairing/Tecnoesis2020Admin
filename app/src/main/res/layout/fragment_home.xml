@@ -1,61 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/img_background"
-    tools:context=".ui.main.home.HomeFragment">
-
-    <LinearLayout
+    android:layout_height="match_parent">
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        tools:context=".ui.main.home.HomeFragment"
+        android:paddingTop="@dimen/margin_padding_size_xlarge"
+        android:id="@+id/rl_parent_home"
+        >
 
-        <include layout="@layout/login_ui"/>
-
-        <RelativeLayout
+        <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp">
-
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:orientation="vertical"
+            android:id="@+id/ll_1"
+            android:background="@drawable/bg_border_bottom"
+            >
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Hi, Admin!"
-                android:textStyle="bold"
-                android:fontFamily="@font/flamenco"
-                android:layout_centerInParent="true"
-                android:textSize="24dp"
-                android:textColor="@color/md_white_1000"/>
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="3dp">
-
-            <TextView
-                android:id="@+id/tv_upcoming_events"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="Your Upcoming Events....."
-                android:textSize="20sp"
-                android:fontFamily="casual"
-                android:textColor="@color/md_white_1000"/>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rview_upcoming_events"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/tv_upcoming_events"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="3dp"
-                android:layout_marginLeft="3dp">
-            </androidx.recyclerview.widget.RecyclerView>
-        </RelativeLayout>
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_size_medium"
+                android:text="Notifications"
+                android:textAlignment="center"
+                android:paddingTop="@dimen/margin_padding_size_medium"
+                android:paddingBottom="@dimen/margin_padding_size_medium"
+                android:textColor="@color/md_black_1000"
+                android:textStyle="bold"
+                />
 
-    </LinearLayout>
-</RelativeLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tl_desig"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/text_size_medium"
+                android:layout_marginEnd="@dimen/text_size_medium"
+                >
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tv_designation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:hint="Designation"
+                    android:text="Organizer @Robotron"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tl_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/text_size_medium"
+                android:layout_marginEnd="@dimen/text_size_medium"
+                >
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tv_notification_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Notification Title"
+                    android:maxLines="1"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tl_message"
+                android:layout_marginStart="@dimen/text_size_medium"
+                android:layout_marginEnd="@dimen/text_size_medium"
+                >
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tv_notification_message"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Message"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_home_send"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Send"
+                android:layout_gravity="end"
+                android:layout_marginEnd="@dimen/margin_padding_size_medium"
+                android:backgroundTint="@color/colorPrimary"
+                />
+        </LinearLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_notifications"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:nestedScrollingEnabled="false"
+            android:layout_below="@id/ll_1"
+            tools:listitem="@layout/listitem_notifications_body"
+            >
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+
+    </RelativeLayout>
+</androidx.core.widget.NestedScrollView>
