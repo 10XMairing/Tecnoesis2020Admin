@@ -2,7 +2,6 @@ package com.github.tenx.tecnoesis20admin.ui.main;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -19,24 +18,25 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.github.tenx.tecnoesis20admin.R;
 import com.github.tenx.tecnoesis20admin.ui.main.about.AboutFragment;
-import com.github.tenx.tecnoesis20admin.ui.main.events.EventsFragment;
-import com.github.tenx.tecnoesis20admin.ui.main.home.HomeFragment;
+import com.github.tenx.tecnoesis20admin.ui.main.feeds.FeedFragment;
+import com.github.tenx.tecnoesis20admin.ui.main.feeds.UploadStatusWatcher;
+import com.github.tenx.tecnoesis20admin.ui.main.notifications.NotificationFragment;
 import com.github.tenx.tecnoesis20admin.ui.splash.SplashActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, UploadStatusWatcher {
 
 
     @BindView(R.id.act_main_bnv)
     BottomNavigationView botNav;
 
 
-    //    frags
-    private HomeFragment fragHome;
+
     //    frag mans
     private FragmentManager fm;
 
@@ -52,9 +52,10 @@ public class MainActivity extends AppCompatActivity
     NavigationView navigationView;
 
 
-    public MainViewModel getVm() {
-        return vm;
-    }
+    private Boolean isUploadingFeed = false;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,10 +76,8 @@ public class MainActivity extends AppCompatActivity
         initNavHeader();
 
         //        initialize home fragment in main activity
-        if(fragHome == null){
-            fragHome = new HomeFragment();
-        }
-        loadFragment(fragHome);
+
+        loadFragment(new FeedFragment());
     }
 
     @Override
@@ -96,17 +95,9 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-        int id = item.getItemId();
+        int id  = item.getItemId();
 
-        if (id == R.id.nav_home) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_tools) {
-
-        } else if (id == R.id.nav_share) {
+      if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_logout) {
                 vm.deleteUserData();
@@ -130,40 +121,55 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void initBotNav(){
-        botNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                int id = menuItem.getItemId();
-                int colorID;
-                Fragment frag;
-                switch (id){
-                    case R.id.nav_home:
-                        frag = new HomeFragment();
-                        colorID = R.color.nav_home;
-                        break;
-                    case R.id.nav_events:
-                        frag = new EventsFragment();
-                        colorID = R.color.nav_events;
-                        break;
-                    case R.id.nav_about:
-                        frag = new AboutFragment();
-                        colorID = R.color.nav_about;
-                        break;
-                    default:
-                        return  false;
-                }
+        botNav.setOnNavigationItemSelectedListener(menuItem -> {
+            int id = menuItem.getItemId();
+            Fragment frag;
 
-                botNav.setBackgroundColor(getResources().getColor(colorID));
-                loadFragment(frag);
-                return true;
+            if(isUploadingFeed){
+                Snackbar.make(drawer , "Feed upload in status. Wait for completion", Snackbar.LENGTH_SHORT).show();
+                return false;
             }
+            switch (id){
+                case R.id.nav_home:
+                    frag = new FeedFragment();
+
+                    break;
+                case R.id.nav_notifications:
+
+
+                    frag = new NotificationFragment();
+
+                    break;
+                default:
+                    return  false;
+            }
+
+            loadFragment(frag);
+            return true;
         });
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        vm.loadFeeds();
+        vm.loadNotifications();
+    }
+
+    public MainViewModel getVm() {
+        return vm;
+    }
+
 
 
     private void initNavHeader(){
         View headerView = navigationView.getHeaderView(0);
         TextView tvEmail = headerView.findViewById(R.id.tv_nav_header_email);
         tvEmail.setText(vm.getEmail());
+    }
+
+    @Override
+    public void onGoingUpload(Boolean status) {
+            isUploadingFeed = status;
     }
 }

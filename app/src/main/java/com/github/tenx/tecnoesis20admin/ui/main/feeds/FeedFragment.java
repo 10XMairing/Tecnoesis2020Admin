@@ -1,4 +1,4 @@
-package com.github.tenx.tecnoesis20admin.ui.main.events;
+package com.github.tenx.tecnoesis20admin.ui.main.feeds;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,6 +18,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.github.tenx.tecnoesis20admin.R;
@@ -32,7 +35,7 @@ import timber.log.Timber;
 
 import static android.app.Activity.RESULT_OK;
 
-public class EventsFragment extends Fragment {
+public class FeedFragment extends Fragment {
 
     @BindView(R.id.iv_image_load)
     ImageView ivImageLoad;
@@ -46,6 +49,14 @@ public class EventsFragment extends Fragment {
     ProgressBar progressCircular;
 
 
+    @BindView(R.id.recycler_feed)
+    RecyclerView recyclerFeed;
+    @BindView(R.id.rl_parent)
+    RelativeLayout rlParent;
+
+    private UploadStatusWatcher uploadStatusWatcher;
+
+
     private EventsViewModel mViewModel;
     private MainViewModel parentViewModel;
 
@@ -53,12 +64,14 @@ public class EventsFragment extends Fragment {
     MaterialButton btnSave;
 
     private Uri imageuri;
+    private FeedAdapter adapter;
+
 
     public static final int LOAD_IMAGE_CODE = 123;
 
 
-    public static EventsFragment newInstance() {
-        return new EventsFragment();
+    public static FeedFragment newInstance() {
+        return new FeedFragment();
     }
 
     @Override
@@ -66,11 +79,16 @@ public class EventsFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
 
 
-        View parent = inflater.inflate(R.layout.fragment_events, container, false);
+        View parent = inflater.inflate(R.layout.fragment_feeds, container, false);
         ButterKnife.bind(this, parent);
+
+        initFeedRecycler(getActivity());
 
         return parent;
     }
+
+
+
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -78,21 +96,31 @@ public class EventsFragment extends Fragment {
         mViewModel = ViewModelProviders.of(this).get(EventsViewModel.class);
         mViewModel.init();
         parentViewModel = ((MainActivity) getActivity()).getVm();
+        parentViewModel.getListFeeds().observe(getActivity(), data -> {
+            adapter.setList(data);
+        });
+        parentViewModel.getLdFeedSuccess().observe(getActivity(), data -> {
+            Timber.d("Upload task completed");
 
-      parentViewModel.getLdDownloadUrl().observe(getActivity() , data -> {
-          Timber.d("Upload task completed");
-            if(!data){
-                Toast.makeText(getActivity(), "Failed to upload image", Toast.LENGTH_SHORT).show();
+            if (!data.isEmpty()) {
+                uploadStatusWatcher.onGoingUpload(false);
                 hideProgress();
-
-            }else {
-//                image uploaded
-                Timber.e("image uploaded : "+data);
-
-                Toast.makeText(getActivity(), "Feed posted successfully", Toast.LENGTH_SHORT).show();
-                hideProgress();
+                Toast.makeText(getActivity(), "Image uploaded successfully", Toast.LENGTH_SHORT).show();
+                parentViewModel.setLdFeedSuccess("");
+                tvFeedText.setText("");
+                ivImageLoad.setImageResource(R.drawable.placeholder_image);
+                imageuri = null;
             }
-      });
+        });
+
+        parentViewModel.getLdFeedError().observe(getActivity(), data -> {
+            if (!data.isEmpty()) {
+                uploadStatusWatcher.onGoingUpload(false);
+                hideProgress();
+                Toast.makeText(getActivity(), "Failed to post feed. Try Again!", Toast.LENGTH_SHORT).show();
+                parentViewModel.setLdFeedError("");
+            }
+        });
     }
 
 
@@ -104,8 +132,22 @@ public class EventsFragment extends Fragment {
     }
 
     @Override
+    public void onStop() {
+        super.onStop();
+
+    }
+
+    @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
+
+        if(context instanceof UploadStatusWatcher){
+            uploadStatusWatcher = ( UploadStatusWatcher)  context;
+        }else {
+            Timber.e("Parent Activity must implement UploadStatusWatcher");
+            throw new Error("Parent Activity must implement UploadStatusWatcher");
+        }
+
     }
 
 
@@ -114,12 +156,14 @@ public class EventsFragment extends Fragment {
 
 
         String feed = tvFeedText.getText().toString();
-            if(imageuri != null && !TextUtils.isEmpty(feed)){
-                showProgress();
-                parentViewModel.uploadImage(imageuri , feed);
-            }else {
-                Toast.makeText(getActivity(), "Select an image first!  and Some texts", Toast.LENGTH_SHORT).show();
-            }
+        if (imageuri != null && !TextUtils.isEmpty(feed)) {
+            showProgress();
+
+            parentViewModel.uploadImage(imageuri, feed);
+           uploadStatusWatcher.onGoingUpload(true);
+        } else {
+            Toast.makeText(getActivity(), "Select an image first!  and Some texts", Toast.LENGTH_SHORT).show();
+        }
 
     }
 
@@ -153,18 +197,25 @@ public class EventsFragment extends Fragment {
     }
 
 
-    private void hideProgress(){
+    private void hideProgress() {
         btnSave.setEnabled(true);
         btnSelectImage.setEnabled(true);
         progressCircular.setVisibility(View.GONE);
         tvFeedText.setEnabled(true);
     }
 
-    private void showProgress(){
+    private void showProgress() {
         btnSave.setEnabled(false);
         btnSelectImage.setEnabled(false);
         progressCircular.setVisibility(View.VISIBLE);
         tvFeedText.setEnabled(false);
+    }
+
+
+    private void initFeedRecycler(Context context) {
+        adapter = new FeedAdapter(context);
+        recyclerFeed.setLayoutManager(new LinearLayoutManager(context));
+        recyclerFeed.setAdapter(adapter);
     }
 
 

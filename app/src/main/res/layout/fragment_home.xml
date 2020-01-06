@@ -7,7 +7,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.main.home.HomeFragment"
+        tools:context=".ui.main.notifications.NotificationFragment"
         android:paddingTop="@dimen/margin_padding_size_xlarge"
         android:id="@+id/rl_parent_home"
         >
@@ -33,12 +33,26 @@
                 android:textStyle="bold"
                 />
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_size_medium"
+                android:text="Send Notifications to the main app users"
+                android:paddingStart="@dimen/margin_padding_size_small"
+                android:paddingEnd="@dimen/margin_padding_size_small"
+                android:paddingBottom="@dimen/margin_padding_size_small"
+                android:textColor="@color/text_secondary"
+                android:background="@drawable/bg_border_bottom"
+                android:textStyle="bold"
+                />
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tl_desig"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/text_size_medium"
                 android:layout_marginEnd="@dimen/text_size_medium"
+
                 >
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tv_designation"

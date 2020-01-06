@@ -1,4 +1,4 @@
-package com.github.tenx.tecnoesis20admin.ui.main.home;
+package com.github.tenx.tecnoesis20admin.ui.main.notifications;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -15,26 +15,19 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.firebase.ui.common.ChangeEventType;
-import com.firebase.ui.database.ChangeEventListener;
-import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.github.tenx.tecnoesis20admin.R;
-import com.github.tenx.tecnoesis20admin.data.models.NotificationBody;
+import com.github.tenx.tecnoesis20admin.ui.main.MainActivity;
+import com.github.tenx.tecnoesis20admin.ui.main.MainViewModel;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import timber.log.Timber;
 
-public class HomeFragment extends Fragment {
+public class NotificationFragment extends Fragment {
     @BindView(R.id.tv_designation)
     TextInputEditText tvDesignation;
     @BindView(R.id.tv_notification_title)
@@ -56,18 +49,20 @@ public class HomeFragment extends Fragment {
     @BindView(R.id.recycler_notifications)
     RecyclerView recyclerNotifications;
 
-    private HomeAdapter adapter;
+    private NotificationAdapter adapter;
 
 //    google fragment lifecycle or https://developer.android.com/guide/components/fragments if you are unsure about how to use fragment lifecycle
 
-    private HomeViewModel mViewModel;
+    private NotificationViewModel mViewModel;
+
+    private MainViewModel parentViewModel;
 
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View parent = inflater.inflate(R.layout.fragment_home, container, false);
         ButterKnife.bind(this, parent);
-        mViewModel = ViewModelProviders.of(getActivity()).get(HomeViewModel.class);
+        mViewModel = ViewModelProviders.of(getActivity()).get(NotificationViewModel.class);
         return parent;
     }
 
@@ -75,20 +70,24 @@ public class HomeFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         initAdapter(getActivity());
+        parentViewModel = ((MainActivity) getActivity()).getVm();
 
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        adapter.stopListening();
     }
 
     @Override
     public void onStart() {
         super.onStart();
 
-        adapter.startListening();
+        parentViewModel.getListNotifications().observe(getActivity() , data -> {
+            adapter.setList(data);
+        });
+
+
 
         mViewModel.getOnSuccessNotification().observe(this, data -> {
 
@@ -173,18 +172,7 @@ public class HomeFragment extends Fragment {
         LinearLayoutManager llman = new LinearLayoutManager(ctx);
         llman.setReverseLayout(true);
         recyclerNotifications.setLayoutManager(llman);
-
-
-        Query query = FirebaseDatabase.getInstance()
-                .getReference()
-                .child("notifications")
-                .limitToLast(50);
-        FirebaseRecyclerOptions<NotificationBody> options =
-                new FirebaseRecyclerOptions.Builder<NotificationBody>()
-                        .setQuery(query, NotificationBody.class)
-                        .build();
-        adapter = new HomeAdapter(options);
-
+        adapter = new NotificationAdapter(ctx);
         recyclerNotifications.setAdapter(adapter);
     }
 

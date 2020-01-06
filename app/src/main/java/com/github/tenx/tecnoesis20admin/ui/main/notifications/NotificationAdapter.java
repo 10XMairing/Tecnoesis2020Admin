@@ -1,4 +1,4 @@
-package com.github.tenx.tecnoesis20admin.ui.main.home;
+package com.github.tenx.tecnoesis20admin.ui.main.notifications;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,12 +10,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.github.tenx.tecnoesis20admin.R;
 import com.github.tenx.tecnoesis20admin.data.models.NotificationBody;
-import com.github.tenx.tecnoesis20admin.data.models.UpcomingEvents;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -23,17 +21,20 @@ import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 import timber.log.Timber;
 
-public class HomeAdapter extends FirebaseRecyclerAdapter<NotificationBody, HomeAdapter.CustomViewHolder> {
+public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.CustomViewHolder> {
 
     private Context context;
+    private List<NotificationBody> list;
 
-    public HomeAdapter(@NonNull FirebaseRecyclerOptions<NotificationBody> options) {
-        super(options);
+    public NotificationAdapter(Context context) {
+        this.context = context;
+        list = new ArrayList<>();
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull CustomViewHolder holder, int position, @NonNull NotificationBody model) {
+    public void onBindViewHolder(@NonNull CustomViewHolder holder, int position) {
 
+        NotificationBody model = list.get(position);
         Glide.with(context).load(model.getImage()).into(holder.civNotificationitemImage);
         holder.tvNotificationitemSenderName.setText(model.getSender());
         String sub = "Sub : " + model.getTitle();
@@ -41,7 +42,11 @@ public class HomeAdapter extends FirebaseRecyclerAdapter<NotificationBody, HomeA
         holder.tvNotificationitemMessage.setText(model.getMessage());
         holder.tvNotificationitemDate.setText(model.getDate());
         Timber.d(model.toString());
+    }
 
+    @Override
+    public int getItemCount() {
+        return list == null ? 0 : list.size();
     }
 
     @NonNull
@@ -71,4 +76,8 @@ public class HomeAdapter extends FirebaseRecyclerAdapter<NotificationBody, HomeA
         }
     }
 
+    public void setList(List<NotificationBody> list) {
+        this.list = list;
+        notifyDataSetChanged();
+    }
 }
