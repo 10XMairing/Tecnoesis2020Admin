@@ -26,6 +26,7 @@ import com.github.tenx.tecnoesis20admin.R;
 import com.github.tenx.tecnoesis20admin.ui.main.MainActivity;
 import com.github.tenx.tecnoesis20admin.ui.main.MainViewModel;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 
 import butterknife.BindView;
@@ -108,7 +109,8 @@ public class FeedFragment extends Fragment {
                 Toast.makeText(getActivity(), "Image uploaded successfully", Toast.LENGTH_SHORT).show();
                 parentViewModel.setLdFeedSuccess("");
                 tvFeedText.setText("");
-                ivImageLoad.setImageResource(R.drawable.placeholder_image);
+                ivImageLoad.setImageResource(R.drawable.placeholder);
+                tvFilename.setText("");
                 imageuri = null;
             }
         });
@@ -157,10 +159,12 @@ public class FeedFragment extends Fragment {
 
         String feed = tvFeedText.getText().toString();
         if (imageuri != null && !TextUtils.isEmpty(feed)) {
-            showProgress();
-
-            parentViewModel.uploadImage(imageuri, feed);
-           uploadStatusWatcher.onGoingUpload(true);
+            Snackbar.make(rlParent , "This will create a feed post for users in the main Tecnoesis Application. This Action cannot be undone. Press Confirm to proceed" , Snackbar.LENGTH_LONG).
+                    setAction("Confirm", v1 -> {
+                        showProgress();
+                        parentViewModel.uploadImage(imageuri, feed);
+                        uploadStatusWatcher.onGoingUpload(true);
+                    }).show();
         } else {
             Toast.makeText(getActivity(), "Select an image first!  and Some texts", Toast.LENGTH_SHORT).show();
         }

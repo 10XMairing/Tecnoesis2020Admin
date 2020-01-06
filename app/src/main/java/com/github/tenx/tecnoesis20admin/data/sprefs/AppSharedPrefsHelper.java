@@ -11,8 +11,9 @@ public class AppSharedPrefsHelper implements SharedPrefsHelper {
     private Context context;
     private  static AppSharedPrefsHelper instance;
 
-    private static final String TOKEN_KEY = "token";
-    private static final String EMAIL_KEY = "email";
+    public static final String TOKEN_KEY = "token";
+    public static final String EMAIL_KEY = "email";
+    public static final String DESIGNATION_KEY = "desig";
 
 
     private SharedPreferences sharedPrefs;
@@ -66,5 +67,17 @@ public class AppSharedPrefsHelper implements SharedPrefsHelper {
         editor.remove(TOKEN_KEY);
         editor.remove(EMAIL_KEY);
         editor.apply();
+    }
+
+    @Override
+    public void saveDesig(String desig) {
+        SharedPreferences.Editor editor = sharedPrefs.edit();
+        editor.putString(DESIGNATION_KEY , desig);
+        editor.apply();
+    }
+
+    @Override
+    public String getDesig() {
+        return sharedPrefs.getString(DESIGNATION_KEY, "Organizer @Robotron");
     }
 }

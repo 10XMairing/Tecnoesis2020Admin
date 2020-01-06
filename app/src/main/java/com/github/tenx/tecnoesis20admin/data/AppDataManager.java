@@ -76,4 +76,14 @@ public class AppDataManager implements  AppDataManagerHelper{
     public Call<TokenResponse> saveFeed(String image, String text) {
         return restHelper.saveFeed(image,text);
     }
+
+    @Override
+    public void saveDesig(String desig) {
+            appSharedPrefsHelper.saveDesig(desig);
+    }
+
+    @Override
+    public String getDesig() {
+        return appSharedPrefsHelper.getDesig();
+    }
 }

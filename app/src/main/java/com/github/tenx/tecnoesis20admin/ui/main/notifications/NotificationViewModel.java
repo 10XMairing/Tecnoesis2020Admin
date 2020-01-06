@@ -61,6 +61,18 @@ public class NotificationViewModel extends AndroidViewModel {
 
 
 
+    public String getDesig(){
+        return appDataManager.getDesig();
+    }
+
+
+    public void saveDesig(String text){
+        appDataManager.saveDesig(text);
+    }
+
+
+
+
 
 
 

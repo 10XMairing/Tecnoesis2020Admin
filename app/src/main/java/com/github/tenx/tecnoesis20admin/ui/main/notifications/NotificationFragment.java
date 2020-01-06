@@ -60,7 +60,7 @@ public class NotificationFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View parent = inflater.inflate(R.layout.fragment_home, container, false);
+        View parent = inflater.inflate(R.layout.fragment_notitifications, container, false);
         ButterKnife.bind(this, parent);
         mViewModel = ViewModelProviders.of(getActivity()).get(NotificationViewModel.class);
         return parent;
@@ -82,6 +82,8 @@ public class NotificationFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+
+        tvDesignation.setText(mViewModel.getDesig());
 
         parentViewModel.getListNotifications().observe(getActivity() , data -> {
             adapter.setList(data);
@@ -118,10 +120,13 @@ public class NotificationFragment extends Fragment {
     @OnClick(R.id.btn_home_send)
     void attemptSend(View v) {
 
-        disableInputs();
+
         String desig = tvDesignation.getText().toString();
         String title = tvNotificationTitle.getText().toString();
         String message = tvNotificationMessage.getText().toString();
+
+
+
 
 
         if (desig.isEmpty()) {
@@ -141,13 +146,17 @@ public class NotificationFragment extends Fragment {
         }
 
 
-        mViewModel.sendNotification(desig, title, message);
+        Snackbar.make(rlParentHome  , "Send this notification to all  users ? " , Snackbar.LENGTH_LONG)
+                .setAction("Confirm" , v1 -> {
+                    disableInputs();
+                    mViewModel.saveDesig(desig);
+                    mViewModel.sendNotification(desig, title, message);
+                }).show();
 
     }
 
     private void clearEditTexts() {
         tvNotificationMessage.setText("");
-        tvDesignation.setText("");
         tvNotificationTitle.setText("");
     }
 

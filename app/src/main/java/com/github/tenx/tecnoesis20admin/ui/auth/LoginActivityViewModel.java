@@ -9,9 +9,18 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.github.tenx.tecnoesis20admin.data.AppDataManager;
+import com.github.tenx.tecnoesis20admin.data.models.AdminResponse;
 import com.github.tenx.tecnoesis20admin.data.models.DefaultResponse;
 import com.github.tenx.tecnoesis20admin.data.models.LoginResponse;
 import com.github.tenx.tecnoesis20admin.ui.MyApplication;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -24,6 +33,7 @@ public class LoginActivityViewModel extends AndroidViewModel {
     private AppDataManager appDataManager;
     private  MutableLiveData<Boolean> sendOtpSuccess;
     private  MutableLiveData<LoginResponse> loginResponse;
+    private  MutableLiveData<List<AdminResponse>> adminsList;
 
 
 
@@ -33,6 +43,7 @@ public class LoginActivityViewModel extends AndroidViewModel {
 
         sendOtpSuccess = new MutableLiveData<>();
         loginResponse = new MutableLiveData<>();
+        adminsList = new MutableLiveData<>();
     }
 
 
@@ -42,6 +53,10 @@ public class LoginActivityViewModel extends AndroidViewModel {
 
     public MutableLiveData<LoginResponse> getLoginResponse() {
         return loginResponse;
+    }
+
+    public LiveData<List<AdminResponse>> getAdminsList() {
+        return adminsList;
     }
 
     public void requestNewOtp(String email){
@@ -109,6 +124,33 @@ public class LoginActivityViewModel extends AndroidViewModel {
             Timber.d("Not a valid email. Skipping");
             loginResponse.postValue(null);
         }
+    }
+
+
+
+    public void loadAdmins(){
+        FirebaseDatabase.getInstance().getReference().child("admins").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            Iterator<DataSnapshot> adminsSnaps =  dataSnapshot.getChildren().iterator();
+
+                            List<AdminResponse> tempList = new ArrayList<>();
+
+                            while (adminsSnaps.hasNext()){
+                                AdminResponse data = adminsSnaps.next().getValue(AdminResponse.class);
+
+                                tempList.add(data);
+                            }
+
+                            adminsList.postValue(tempList);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
 

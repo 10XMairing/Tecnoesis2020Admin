@@ -6,6 +6,11 @@ public interface SharedPrefsHelper {
     void saveEmail(String email);
 
 
+    void saveDesig(String desig);
+
+    String getDesig();
+
+
     String getToken();
 
 

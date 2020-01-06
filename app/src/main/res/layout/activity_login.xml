@@ -1,124 +1,176 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-
-    >
-
-    <ImageView
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:maxHeight="200dp"
-        android:layout_above="@id/cl_1"
-        android:src="@drawable/tecnoesis_logo"
-        />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
 
-            <com.google.android.material.card.MaterialCardView
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxHeight="200dp"
+            android:layout_above="@id/cl_1"
+            android:src="@drawable/tecnoesis_logo"
+            />
+
+        <com.google.android.material.card.MaterialCardView
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#80FFFFFF"
+            android:layout_centerInParent="true"
+            android:id="@+id/cl_1"
+            android:layout_marginStart="@dimen/margin_padding_size_medium"
+            android:layout_marginEnd="@dimen/margin_padding_size_medium"
+            >
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#80FFFFFF"
-                android:layout_centerInParent="true"
-                android:id="@+id/cl_1"
-                android:layout_marginStart="@dimen/margin_padding_size_medium"
-                android:layout_marginEnd="@dimen/margin_padding_size_medium"
+                android:orientation="vertical"
+                android:paddingTop="@dimen/margin_padding_size_xlarge"
+                android:paddingBottom="@dimen/margin_padding_size_xlarge"
+
                 >
-                <LinearLayout
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:paddingTop="@dimen/margin_padding_size_xlarge"
-                    android:paddingBottom="@dimen/margin_padding_size_xlarge"
+                    android:text="Admin Login"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/text_size_xlarge"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginBottom="@dimen/margin_padding_size_medium"
+                    />
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tl_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_padding_size_xxlarge"
+                    android:layout_marginEnd="@dimen/margin_padding_size_xxlarge"
+                    android:textColorHint="@color/text_secondary"
+                    app:boxBackgroundColor="@color/md_grey_100"
+                    >
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_login_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="250dp"
+                        android:hint="Email"
+                        android:textColor="@color/text_primary"
+                        android:inputType="textEmailAddress"
+                        />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_login_otp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Send OTP"
+                    android:layout_marginStart="@dimen/margin_padding_size_xxlarge"
+                    android:layout_marginEnd="@dimen/margin_padding_size_xxlarge"
+                    app:backgroundTint="@color/colorPrimary"
+                    />
+
+                <com.github.tenx.tecnoesis20admin.ui.views.OtpEditText
+                    android:id="@+id/et_otp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_padding_size_xxlarge"
+                    android:layout_marginEnd="@dimen/margin_padding_size_xxlarge"
+                    android:cursorVisible="false"
+                    android:digits="1234567890"
+                    android:inputType="number"
+                    android:maxLength="4"
+                    android:layout_marginTop="@dimen/margin_padding_size_medium"
+                    android:layout_marginBottom="@dimen/margin_padding_size_medium"
+                    android:textIsSelectable="false"
+                    android:textSize="20sp"
+                    android:textColor="@color/md_grey_100"
+
+
+                    />
+
+                <TextView
+                    android:id="@+id/tv_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Check your email for OTP. It may also be delivered to your spams or promotions"
+                    android:textSize="@dimen/text_size_micro"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorAccent"
+                    android:visibility="gone"
+                    />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
 
                     >
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Admin Login"
-                        android:textAlignment="center"
-                        android:textSize="@dimen/text_size_xlarge"
-                        android:textStyle="bold"
-                        android:textColor="@color/colorPrimary"
-                        android:layout_marginBottom="@dimen/margin_padding_size_medium"
-                        />
-
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/tl_1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/margin_padding_size_xxlarge"
-                        android:layout_marginEnd="@dimen/margin_padding_size_xxlarge"
-                        android:textColorHint="@color/text_secondary"
-                        app:boxBackgroundColor="@color/md_grey_100"
-                        >
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/et_login_email"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="250dp"
-                            android:hint="Email"
-                            android:textColor="@color/text_primary"
-                            android:inputType="textEmailAddress"
-                            />
-                    </com.google.android.material.textfield.TextInputLayout>
-
                     <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btn_login_otp"
+                        android:id="@+id/btn_login"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Send OTP"
-                        android:layout_marginStart="@dimen/margin_padding_size_xxlarge"
-                        android:layout_marginEnd="@dimen/margin_padding_size_xxlarge"
+                        android:text="LOGIN"
+                        android:layout_centerVertical="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="10dp"
+                        android:backgroundTint="@color/colorPrimary"/>
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_login_clear"
+                        android:layout_width="wrap_content"
+                        android:layout_height="37dp"
+                        android:layout_centerVertical="true"
+                        android:text="Reset"
+                        android:layout_toEndOf="@id/btn_login"
+                        android:layout_marginStart="@dimen/text_size_small"
+                        android:layout_centerHorizontal="true"
+                        android:textColor="@color/md_grey_500"
+                        android:backgroundTint="@color/md_grey_200"/>
+                </RelativeLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-                        app:backgroundTint="@color/colorPrimary"
-                        />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/toggle_admins"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Show/Hide Registered Admins"
+                android:layout_marginStart="@dimen/margin_padding_size_medium"
+                app:backgroundTint="@color/md_blue_700"
+                />
 
-                    <com.github.tenx.tecnoesis20admin.ui.views.OtpEditText
-                        android:id="@+id/et_otp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/margin_padding_size_xxlarge"
-                        android:layout_marginEnd="@dimen/margin_padding_size_xxlarge"
-                        android:cursorVisible="false"
-                        android:digits="1234567890"
-                        android:inputType="number"
-                        android:maxLength="4"
-                        android:layout_marginTop="@dimen/margin_padding_size_medium"
-                        android:layout_marginBottom="@dimen/margin_padding_size_medium"
-                        android:textIsSelectable="false"
-                        android:textSize="20sp"
-                        android:textColor="@color/md_grey_100"
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_size_micro"
+                android:textColor="@color/colorAccent"
+                android:id="@+id/tv_info_1"
+                android:text="If you are not in the list send an email to tenx.devs@gmail.com with your name  , organizing event and other details"
+                android:textAlignment="center"
 
+                />
 
-                        />
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/tl_2"
-                        >
-                        <com.google.android.material.button.MaterialButton
-                            android:id="@+id/btn_login"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="LOGIN"
-                            android:layout_centerVertical="true"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="10dp"
-                            android:backgroundTint="@color/colorPrimary"/>
-                        <com.google.android.material.button.MaterialButton
-                            android:id="@+id/btn_login_clear"
-                            android:layout_width="wrap_content"
-                            android:layout_height="37dp"
-                            android:layout_centerVertical="true"
-                            android:text="Reset"
-                            android:layout_toEndOf="@id/btn_login"
-                            android:layout_marginStart="@dimen/text_size_small"
-                            android:layout_centerHorizontal="true"
-                            android:textColor="@color/md_grey_500"
-                            android:backgroundTint="@color/md_grey_200"/>
-                    </RelativeLayout>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-</RelativeLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_admins"
+                android:layout_marginStart="@dimen/margin_padding_size_medium"
+                android:layout_marginEnd="@dimen/margin_padding_size_medium"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:nestedScrollingEnabled="false"
+                >
+
+            </androidx.recyclerview.widget.RecyclerView>
+        </LinearLayout>
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>
