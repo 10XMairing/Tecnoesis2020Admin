@@ -4,5 +4,7 @@
         <item>@font/</item>
         <item>@font/bungee_shade</item>
         <item>@font/flamenco</item>
+        <item>@font/roboto</item>
+        <item>@font/roboto_medium</item>
     </array>
 </resources>

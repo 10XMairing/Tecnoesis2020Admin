@@ -1,18 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:scrollbars="none"
     android:layout_height="match_parent">
     <RelativeLayout
+        android:layout_margin="10dp"
         android:layout_width="match_parent"
+        android:background="#fafafa"
         android:layout_height="match_parent"
-        android:id="@+id/rl_parent"
-        >
+        android:id="@+id/rl_parent">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/card_view_1"
+            android:layout_marginTop="10dp"
+            app:cardElevation="4dp"
+            android:layout_marginBottom="10dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_margin="4dp"
+                android:layout_height="match_parent">
+
 
         <TextView
             android:id="@+id/tv_sub"
-
+            android:fontFamily="@font/roboto_medium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_size_medium"
@@ -22,8 +38,6 @@
             android:paddingBottom="@dimen/margin_padding_size_small"
             android:paddingTop="@dimen/margin_padding_size_small"
             android:textColor="@color/text_secondary"
-            android:background="@drawable/bg_border_bottom"
-            android:textStyle="bold"
             />
 
 
@@ -32,6 +46,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/rl_1"
+            android:layout_margin="6dp"
+            android:layout_marginTop="5dp"
             android:layout_below="@id/tv_sub"
             >
 
@@ -58,6 +74,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:fontFamily="@font/roboto"
                     tools:text="Filename.png"
                     android:textColor="@color/md_grey_100"
                     android:paddingStart="@dimen/margin_padding_size_medium"
@@ -66,6 +83,8 @@
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_select_image"
                     android:layout_width="wrap_content"
+                    android:fontFamily="@font/roboto"
+                    android:layout_marginRight="5dp"
                     android:layout_height="wrap_content"
                     android:text="pick image"
                     android:backgroundTint="@color/colorPrimary"
@@ -81,30 +100,36 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_below="@id/rl_1"
             android:id="@+id/tl_1"
-            android:background="@color/md_grey_100"
+            android:layout_margin="5dp"
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             >
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/tv_feed_text"
+                android:fontFamily="@font/roboto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minLines="5"
+                android:textSize="16sp"
                 android:gravity="start"
+                android:padding="10dp"
                 android:hint="Your feed message goes here!"
                 />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_save_feed"
+            android:fontFamily="@font/roboto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/tl_1"
             android:backgroundTint="@color/colorPrimary"
             android:text="Save"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="10dp"
             android:layout_alignParentEnd="true"
-            android:layout_marginEnd="@dimen/margin_padding_size_medium"
             />
         <ProgressBar
             android:layout_width="45dp"
@@ -116,10 +141,40 @@
             android:layout_marginEnd="@dimen/margin_padding_size_medium"
             />
 
+            </RelativeLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/card_view_2"
+        android:layout_below="@+id/card_view_1"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tv_earlier_posts"
+            android:fontFamily="@font/roboto_medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_medium"
+            android:text="Earlier posts"
+            android:paddingStart="@dimen/margin_padding_size_small"
+            android:paddingEnd="@dimen/margin_padding_size_small"
+            android:paddingBottom="@dimen/margin_padding_size_small"
+            android:paddingTop="@dimen/margin_padding_size_small"
+            android:textColor="@color/text_secondary"
+            />
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_feed"
-            android:layout_below="@id/btn_save_feed"
+            android:layout_below="@id/tv_earlier_posts"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:listitem="@layout/listitem_feed"
@@ -128,7 +183,8 @@
 
         </androidx.recyclerview.widget.RecyclerView>
 
-
+    </RelativeLayout>
+    </com.google.android.material.card.MaterialCardView>
 
     </RelativeLayout>
 

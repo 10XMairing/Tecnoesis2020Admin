@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/margin_padding_size_small">
-    <LinearLayout  android:orientation="vertical"
+    app:cardElevation="4dp"
+    android:layout_marginBottom="12dp">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_margin="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <ImageView
@@ -22,15 +26,21 @@
 
         <TextView
             android:id="@+id/tv_feed_date"
+            android:fontFamily="@font/roboto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="23 oct 2:00pm"
+            android:textSize="16sp"
             android:textColor="@color/text_low_focus"
             android:layout_marginStart="@dimen/margin_padding_size_medium"
             />
         <com.github.tenx.tecnoesis20admin.ui.views.ExpandableTextView
             android:id="@+id/tv_feed_text"
             android:layout_width="match_parent"
+            android:fontFamily="@font/roboto"
+            android:textSize="16sp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             android:layout_height="wrap_content"
             android:textColor="@color/text_primary"
             android:maxLines="4"
