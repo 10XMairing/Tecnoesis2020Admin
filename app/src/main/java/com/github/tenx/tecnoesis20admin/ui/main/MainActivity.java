@@ -1,12 +1,13 @@
 package com.github.tenx.tecnoesis20admin.ui.main;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -17,7 +18,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.github.tenx.tecnoesis20admin.R;
-import com.github.tenx.tecnoesis20admin.ui.main.about.AboutFragment;
 import com.github.tenx.tecnoesis20admin.ui.main.feeds.FeedFragment;
 import com.github.tenx.tecnoesis20admin.ui.main.feeds.UploadStatusWatcher;
 import com.github.tenx.tecnoesis20admin.ui.main.notifications.NotificationFragment;
@@ -97,7 +97,10 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id  = item.getItemId();
 
-      if (id == R.id.nav_share) {
+      if (id == R.id.nav_contact) {
+
+                sendMail();
+
 
         } else if (id == R.id.nav_logout) {
                 vm.deleteUserData();
@@ -132,7 +135,6 @@ public class MainActivity extends AppCompatActivity
             switch (id){
                 case R.id.nav_home:
                     frag = new FeedFragment();
-
                     break;
                 case R.id.nav_notifications:
 
@@ -160,12 +162,24 @@ public class MainActivity extends AppCompatActivity
         return vm;
     }
 
+    private void  sendMail(){
+        Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+                "mailto","tenx.devs@gmail.com", null));
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Tecnoesis2020 Report");
+        emailIntent.putExtra(Intent.EXTRA_TEXT, "");
+        startActivity(Intent.createChooser(emailIntent, "Send email..."));
+    }
+
 
 
     private void initNavHeader(){
         View headerView = navigationView.getHeaderView(0);
         TextView tvEmail = headerView.findViewById(R.id.tv_nav_header_email);
         tvEmail.setText(vm.getEmail());
+    }
+
+    public boolean isOwner(String email){
+            return vm.isOwner(email);
     }
 
     @Override

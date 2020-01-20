@@ -117,9 +117,24 @@
             />
 
 
+
+        <TextView
+            android:id="@+id/tv_feed_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_padding_size_medium"
+            android:text="Feeds"
+            android:textSize="@dimen/text_size_xlarge"
+            android:paddingStart="@dimen/margin_padding_size_medium"
+            android:textStyle="bold"
+            android:layout_below="@id/btn_save_feed"
+            android:textColor="@color/text_primary"
+            />
+
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_feed"
-            android:layout_below="@id/btn_save_feed"
+            android:layout_below="@id/tv_feed_header"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:listitem="@layout/listitem_feed"

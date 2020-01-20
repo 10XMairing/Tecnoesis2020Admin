@@ -5,7 +5,7 @@
     <item android:title="Communicate">
         <menu>
             <item
-                android:id="@+id/nav_share"
+                android:id="@+id/nav_contact"
                 android:icon="@drawable/ic_contact"
                 android:title="@string/menu_contact" />
             <item

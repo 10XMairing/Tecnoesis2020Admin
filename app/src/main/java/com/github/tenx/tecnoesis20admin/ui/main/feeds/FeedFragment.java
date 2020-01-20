@@ -1,9 +1,12 @@
 package com.github.tenx.tecnoesis20admin.ui.main.feeds;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +19,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -25,13 +29,31 @@ import com.bumptech.glide.Glide;
 import com.github.tenx.tecnoesis20admin.R;
 import com.github.tenx.tecnoesis20admin.ui.main.MainActivity;
 import com.github.tenx.tecnoesis20admin.ui.main.MainViewModel;
+
+import com.github.tenx.tecnoesis20admin.utils.PathUtil;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.MultiplePermissionsReport;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionDeniedResponse;
+import com.karumi.dexter.listener.PermissionGrantedResponse;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
+import com.karumi.dexter.listener.single.PermissionListener;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URISyntaxException;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import id.zelory.compressor.Compressor;
+import io.reactivex.internal.schedulers.IoScheduler;
 import timber.log.Timber;
 
 import static android.app.Activity.RESULT_OK;
@@ -48,6 +70,8 @@ public class FeedFragment extends Fragment {
     TextInputEditText tvFeedText;
     @BindView(R.id.progress_circular)
     ProgressBar progressCircular;
+
+
 
 
     @BindView(R.id.recycler_feed)
@@ -100,6 +124,9 @@ public class FeedFragment extends Fragment {
         parentViewModel.getListFeeds().observe(getActivity(), data -> {
             adapter.setList(data);
         });
+
+
+
         parentViewModel.getLdFeedSuccess().observe(getActivity(), data -> {
             Timber.d("Upload task completed");
 
@@ -159,9 +186,30 @@ public class FeedFragment extends Fragment {
 
         String feed = tvFeedText.getText().toString();
         if (imageuri != null && !TextUtils.isEmpty(feed)) {
+
+
+
             Snackbar.make(rlParent , "This will create a feed post for users in the main Tecnoesis Application. This Action cannot be undone. Press Confirm to proceed" , Snackbar.LENGTH_LONG).
                     setAction("Confirm", v1 -> {
+
+
                         showProgress();
+
+
+                       try {
+
+                            String path = PathUtil.getPath(getActivity() , imageuri);
+
+                           File compressedImage = new Compressor(getContext()).compressToFile(new File(path));
+                            imageuri = Uri.fromFile(compressedImage);
+
+
+                            Timber.d("Compressed file success");
+                       }catch (URISyntaxException e){
+                            Timber.e("Failed to compress URI ex file %s", e.getMessage());
+                       }catch (IOException e){
+                           Timber.e("Failed to compress IO Ex file %s", e.getMessage());
+                       }
                         parentViewModel.uploadImage(imageuri, feed);
                         uploadStatusWatcher.onGoingUpload(true);
                     }).show();
@@ -173,10 +221,27 @@ public class FeedFragment extends Fragment {
 
     @OnClick(R.id.btn_select_image)
     void selectImage(View v) {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), LOAD_IMAGE_CODE);
+
+        Dexter.withActivity(getActivity()).withPermissions(Manifest.permission.READ_EXTERNAL_STORAGE).withListener(new MultiplePermissionsListener() {
+            @Override
+            public void onPermissionsChecked(MultiplePermissionsReport report) {
+                if(report.areAllPermissionsGranted()){
+                    Intent intent = new Intent();
+                    intent.setType("image/*");
+                    intent.setAction(Intent.ACTION_GET_CONTENT);
+                    startActivityForResult(Intent.createChooser(intent, "Select Picture"), LOAD_IMAGE_CODE);
+                }else {
+                    Snackbar.make(rlParent , "Permission required to read/write photos" , Snackbar.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
+                            Timber.d("onPermissionRationaleShouldBeShown called");
+            }
+        }).check();
+
+
 
     }
 
@@ -191,8 +256,6 @@ public class FeedFragment extends Fragment {
                 //Uri selectedImageURI = data.getData();
                 Glide.with(getActivity()).load(data.getData()).into(ivImageLoad);
                 imageuri = data.getData();
-
-
                 tvFilename.setText(data.getData().getLastPathSegment());
 
             }
@@ -217,10 +280,14 @@ public class FeedFragment extends Fragment {
 
 
     private void initFeedRecycler(Context context) {
-        adapter = new FeedAdapter(context);
-        recyclerFeed.setLayoutManager(new LinearLayoutManager(context));
+        adapter = new FeedAdapter(context, getChildFragmentManager());
+        LinearLayoutManager lm = new LinearLayoutManager(context);
+        lm.setReverseLayout(true);
+        recyclerFeed.setLayoutManager(lm);
         recyclerFeed.setAdapter(adapter);
     }
+
+
 
 
 }

@@ -4,6 +4,7 @@ import android.app.Application;
 import android.net.Uri;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -19,6 +20,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -31,6 +33,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -48,7 +52,9 @@ public class MainViewModel  extends AndroidViewModel {
 
 
     private MutableLiveData<List<NotificationBody>> listNotifications;
-    private MutableLiveData<List<FeedResponseBody>> listFeeds;
+    private MutableLiveData<List<DataSnapshot>> listFeeds;
+    private MutableLiveData<Boolean> onUpdatedFeed;
+    private MutableLiveData<Boolean> onDeleteFeed;
 
     private FirebaseStorage storage;
     private FirebaseDatabase firedb;
@@ -70,6 +76,8 @@ public class MainViewModel  extends AndroidViewModel {
         ldFeedSuccess = new MutableLiveData<>();
         ldFeedError = new MutableLiveData<>();
         listNotifications = new MutableLiveData<>();
+        onUpdatedFeed = new MutableLiveData<>();
+        onDeleteFeed = new MutableLiveData<>();
         listFeeds = new MutableLiveData<>();
         storage = FirebaseStorage.getInstance();
         firedb = FirebaseDatabase.getInstance();
@@ -85,8 +93,16 @@ public class MainViewModel  extends AndroidViewModel {
         return listNotifications;
     }
 
-    public LiveData<List<FeedResponseBody>> getListFeeds() {
+    public LiveData<List<DataSnapshot>> getListFeeds() {
         return listFeeds;
+    }
+
+    public LiveData<Boolean> getOnUpdatedFeed() {
+        return onUpdatedFeed;
+    }
+
+    public LiveData<Boolean> getOnDeleteFeed() {
+        return onDeleteFeed;
     }
 
     public void deleteUserData() {
@@ -103,7 +119,8 @@ public class MainViewModel  extends AndroidViewModel {
 
     public void uploadImage(Uri uri, String feed){
         tempFeed = feed;
-        StorageReference ref =  storage.getReference().child("feeds");
+        String name = UUID.randomUUID().toString().replace("-" , "").toLowerCase();
+        StorageReference ref =  storage.getReference().child("feeds/image_"+name);
 
         ldFeedError.setValue("");
         ldFeedSuccess.setValue("");
@@ -115,7 +132,7 @@ public class MainViewModel  extends AndroidViewModel {
                 public void onComplete(@NonNull Task<Uri> task) {
                     if(task.isSuccessful()){
                         String downloadUrl = task.getResult().toString();
-                        Timber.d("Download Url generated : " +downloadUrl);
+                        Timber.d("Download Url generated : %s", downloadUrl);
                         appDataManager.saveFeed(downloadUrl,feed).enqueue(new Callback<TokenResponse>() {
                             @Override
                             public void onResponse(Call<TokenResponse> call, Response<TokenResponse> response) {
@@ -176,11 +193,11 @@ public class MainViewModel  extends AndroidViewModel {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Iterator<DataSnapshot> iterator =  dataSnapshot.getChildren().iterator();
-                List<FeedResponseBody> tempList = new ArrayList<>();
+                List<DataSnapshot> tempList = new ArrayList<>();
 
                 while(iterator.hasNext()){
-                    FeedResponseBody data = iterator.next().getValue(FeedResponseBody.class);
-                    tempList.add(data);
+
+                    tempList.add(iterator.next());
                 }
 
 
@@ -194,6 +211,44 @@ public class MainViewModel  extends AndroidViewModel {
 
             }
         });
+    }
+
+
+    public void updateFeed(Map<String, Object> data, String key){
+
+
+        firedb.getReference("feeds").child(key).updateChildren(data, (databaseError, databaseReference) -> {
+            if(databaseError != null){
+                onUpdatedFeed.postValue(false);
+                return;
+            }
+
+            Timber.d("update completed");
+            onUpdatedFeed.postValue(true);
+
+        });
+    }
+
+
+    public void deleteFeed(String keyFeed){
+
+        onDeleteFeed.setValue(false);
+        firedb.getReference("feeds").child(keyFeed).removeValue((databaseError, databaseReference) -> {
+            if(databaseError != null){
+                onDeleteFeed.postValue(false);
+                return;
+            }else {
+                onDeleteFeed.postValue(true);
+            }
+        });
+    }
+
+    public boolean isOwner(String email){
+
+        Timber.d("app email : "+appDataManager.getEmail());
+        Timber.d("compared email :"+email);
+
+        return appDataManager.getEmail().trim().equals(email.trim());
     }
 
 }

@@ -71,6 +71,12 @@ dependencies {
 
     implementation 'com.google.firebase:firebase-storage:19.1.0'
 
+    implementation 'id.zelory:compressor:2.1.0'
+
+    implementation 'com.karumi:dexter:6.0.1'
+
+    implementation 'com.google.firebase:firebase-auth:19.2.0'
+
 
 }
 
