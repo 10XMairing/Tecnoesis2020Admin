@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/ll_parent_dialog"
+    android:padding="@dimen/margin_padding_size_medium"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rl_1"
+        android:layout_below="@id/tv_sub"
+        >
+
+
+        <ImageView
+            android:id="@+id/iv_update_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxHeight="200dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/placeholder"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="#40000000"
+            android:layout_alignBottom="@id/iv_update_image"
+            >
+            <TextView
+                android:id="@+id/tv_update_filename"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                tools:text="Filename.png"
+                android:textColor="@color/md_grey_100"
+                android:paddingStart="@dimen/margin_padding_size_medium"
+                />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_select_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="pick image"
+                android:backgroundTint="@color/colorPrimary"
+                />
+
+
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/et_text_feed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="@string/lorem_30"
+        android:minLines="5"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_update"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="update"
+            android:backgroundTint="@color/colorPrimary"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="@dimen/margin_padding_size_medium"
+            />
+
+        <ProgressBar
+            android:id="@+id/prog_update_progress"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_toStartOf="@id/btn_update"
+            android:visibility="gone"
+            />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="delete"
+            android:layout_toStartOf="@id/prog_update_progress"
+            android:backgroundTint="@color/md_grey_300"
+            android:textColor="@color/text_primary"
+
+            android:layout_marginEnd="@dimen/margin_padding_size_medium"
+            />
+    </RelativeLayout>
+
+
+
+</LinearLayout>

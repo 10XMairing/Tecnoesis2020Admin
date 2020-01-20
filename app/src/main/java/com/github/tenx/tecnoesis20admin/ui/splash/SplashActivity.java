@@ -14,6 +14,7 @@ import com.github.tenx.tecnoesis20admin.R;
 import com.github.tenx.tecnoesis20admin.ui.auth.LoginActivity;
 import com.github.tenx.tecnoesis20admin.ui.main.MainActivity;
 import com.google.android.material.button.MaterialButton;
+import com.google.firebase.auth.FirebaseAuth;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,13 +41,13 @@ public class SplashActivity extends AppCompatActivity {
         mbtnNext.setOnClickListener(v -> {
 //            go to next screen
             showProgress();
-            new Handler().postDelayed(() -> {
-                    if(viewModel.hasToken()){
-                        viewModel.verifyToken();
-                    }else {
-                        initActivity(LoginActivity.class);
-                    }
-            }, 1500);
+            FirebaseAuth.getInstance().signInAnonymously().addOnCompleteListener(task -> {
+                if(viewModel.hasToken()){
+                    viewModel.verifyToken();
+                }else {
+                    initActivity(LoginActivity.class);
+                }
+            });
         });
     }
 
