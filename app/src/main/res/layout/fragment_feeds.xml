@@ -4,9 +4,10 @@
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:scrollbars="none"
+    android:background="@drawable/sky"
     android:layout_height="match_parent">
     <RelativeLayout
-        android:layout_margin="10dp"
+        android:layout_margin="5dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/rl_parent">
@@ -15,8 +16,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/card_view_1"
-            android:layout_marginTop="10dp"
             app:cardElevation="4dp"
+            app:cardBackgroundColor="@color/bg_card_50_opac_black"
             android:layout_marginBottom="10dp">
 
             <RelativeLayout
@@ -36,7 +37,7 @@
             android:paddingEnd="@dimen/margin_padding_size_small"
             android:paddingBottom="@dimen/margin_padding_size_small"
             android:paddingTop="@dimen/margin_padding_size_small"
-            android:textColor="@color/text_secondary"
+            android:textColor="@color/md_grey_200"
             />
 
 
@@ -100,6 +101,7 @@
             android:layout_below="@id/rl_1"
             android:id="@+id/tl_1"
             android:layout_margin="5dp"
+            android:textColorHint="@color/md_grey_400"
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -110,7 +112,9 @@
                 android:fontFamily="@font/roboto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorAccent"
                 android:minLines="5"
+                android:textColor="@color/md_grey_200"
                 android:textSize="16sp"
                 android:gravity="start"
                 android:padding="10dp"
@@ -149,7 +153,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/card_view_2"
         android:layout_below="@+id/card_view_1"
-        android:layout_marginTop="10dp"
+        app:cardBackgroundColor="@color/bg_card_50_opac_black"
         android:layout_marginBottom="10dp">
 
     <RelativeLayout
@@ -165,9 +169,9 @@
             android:text="Earlier posts"
             android:paddingStart="@dimen/margin_padding_size_small"
             android:paddingEnd="@dimen/margin_padding_size_small"
+            android:textColor="@color/md_grey_200"
             android:paddingBottom="@dimen/margin_padding_size_small"
             android:paddingTop="@dimen/margin_padding_size_small"
-            android:textColor="@color/text_secondary"
             />
 
 

@@ -19,6 +19,7 @@
             android:layout_marginTop="10dp"
             app:cardElevation="4dp"
             android:layout_margin="8dp"
+            app:cardBackgroundColor="@color/bg_card_50_opac_black"
             android:layout_marginBottom="10dp">
 
         <LinearLayout
@@ -27,7 +28,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:id="@+id/ll_1"
-            android:background="@drawable/bg_border_bottom"
             >
 
             <TextView
@@ -47,6 +47,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tl_desig"
                 android:fontFamily="@font/roboto"
+                android:textColor="@color/md_grey_400"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/text_size_medium"
@@ -58,6 +59,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:maxLines="1"
+                    android:textColor="@color/md_grey_200"
                     android:textSize="16sp"
                     android:hint="Designation"
                     android:fontFamily="@font/roboto"
@@ -68,15 +70,20 @@
                 android:id="@+id/tl_title"
                 android:layout_width="match_parent"
                 android:fontFamily="@font/roboto"
+                android:textColor="@color/md_grey_400"
                 android:layout_height="wrap_content"
+                android:textColorHint="@color/md_grey_400"
                 android:layout_marginStart="@dimen/text_size_medium"
                 android:layout_marginEnd="@dimen/text_size_medium"
+
                 >
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tv_notification_title"
                     android:layout_width="match_parent"
                     android:fontFamily="@font/roboto"
+                    android:backgroundTint="@color/colorAccent"
                     android:textSize="16sp"
+                    android:textColor="@color/md_grey_200"
                     android:layout_height="wrap_content"
                     android:hint="Notification Title"
                     android:maxLines="1"
@@ -86,7 +93,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/tl_message"
+                android:textColorHint="@color/md_grey_400"
                 android:fontFamily="@font/roboto"
+                android:backgroundTint="@color/colorAccent"
                 android:layout_marginStart="@dimen/text_size_medium"
                 android:layout_marginEnd="@dimen/text_size_medium"
                 >
@@ -95,6 +104,8 @@
                     android:layout_width="match_parent"
                     android:fontFamily="@font/roboto"
                     android:textSize="16sp"
+                    android:backgroundTint="@color/colorAccent"
+                    android:textColor="@color/md_grey_200"
                     android:layout_height="wrap_content"
                     android:hint="Message"
                     />
