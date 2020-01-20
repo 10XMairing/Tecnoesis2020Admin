@@ -8,6 +8,7 @@
     android:layout_marginLeft="8dp"
     android:layout_marginRight="8dp"
     app:cardElevation="4dp"
+    app:cardBackgroundColor="@color/bg_card_50_opac_black"
     android:background="@drawable/bg_border_bottom"
     android:layout_marginBottom="12dp">
 
@@ -52,7 +53,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_size_micro"
-                android:textColor="@color/text_low_focus"
+                android:textColor="@color/md_grey_400"
                 android:text="12:30Pm , 1st Feb"
                 />
 
@@ -61,16 +62,16 @@
                 android:id="@+id/tv_notificationitem_subject"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/text_primary"
                 android:textSize="@dimen/text_size_medium"
+                android:textColor="@color/md_grey_200"
                 android:text="Event reschedule!" />
             <TextView
                 android:id="@+id/tv_notificationitem_message"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:textColor="@color/text_secondary"
                 android:textSize="@dimen/text_size_small"
+                android:textColor="@color/md_grey_300"
                 android:linksClickable="true"
                 android:autoLink="web"
                 android:textColorLink="@color/md_blue_600"

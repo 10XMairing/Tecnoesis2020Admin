@@ -13,6 +13,7 @@
     <color name="text_secondary">#616161</color>
     <color name="text_low_focus">#757575</color>
     <color name="text_heading">#212121</color>
+    <color name="bg_card_50_opac_black">#80000000</color>
 
     <!-- google's material design colours from
     http://www.google.com/design/spec/style/color.html#color-ui-color-palette -->
